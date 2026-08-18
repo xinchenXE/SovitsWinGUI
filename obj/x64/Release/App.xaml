@@ -1,0 +1,184 @@
+﻿<Application
+    x:Class="SoVITS_GUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- ============================================================ -->
+            <!-- Fluent 图标字体（Win11 Segoe Fluent Icons，兼容 MDL2 码位） -->
+            <!-- ============================================================ -->
+            <FontFamily x:Key="FluentIconFont">Segoe Fluent Icons</FontFamily>
+
+            <!-- ============================================================ -->
+            <!-- 自定义画刷 — 默认亮色值，ApplyTheme() 在亮暗切换时从系统画刷同步颜色 -->
+            <!-- ============================================================ -->
+            <SolidColorBrush x:Key="MintGreenBrush" Color="#3db8a0" />
+            <SolidColorBrush x:Key="SoftMintBrush" Color="#7dd4c0" />
+            <SolidColorBrush x:Key="LightMintBrush" Color="#e8faf2" />
+            <SolidColorBrush x:Key="TealBlueBrush" Color="#6dc8b8" />
+            <SolidColorBrush x:Key="DarkGrayBrush" Color="#4a5550" />
+            <SolidColorBrush x:Key="MidGrayBrush" Color="#8a948e" />
+            <SolidColorBrush x:Key="LightGrayBrush" Color="#c8d0cc" />
+            <SolidColorBrush x:Key="TextPrimaryBrush" Color="#4a5550" />
+            <SolidColorBrush x:Key="TextSecondaryBrush" Color="#8a948e" />
+            <SolidColorBrush x:Key="CardBackgroundBrush" Color="#F5FAF8" />
+            <SolidColorBrush x:Key="CardBorderBrush" Color="#E0E4E2" />
+            <SolidColorBrush x:Key="SecondaryButtonBgBrush" Color="#F3F3F3" />
+            <AcrylicBrush x:Key="LogAcrylicBrush" TintColor="#F5FAF8" TintOpacity="0.8" FallbackColor="#F5FAF8" />
+            <AcrylicBrush x:Key="CardAcrylicBrush" TintColor="#F5FAF8" TintOpacity="0.8" FallbackColor="#F5FAF8" />
+
+            <!-- ============================================================ -->
+            <!-- Win11 设置风格：卡片 / 行 / 分隔线 / 图标徽章                  -->
+            <!-- ============================================================ -->
+
+            <!-- 设置卡片容器（无内边距，行自带间距） -->
+            <Style x:Key="SettingsCard" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="8" />
+            </Style>
+
+            <!-- 带内边距的设置卡片（自由内容区） -->
+            <Style x:Key="SettingsCardPadded" TargetType="Border" BasedOn="{StaticResource SettingsCard}">
+                <Setter Property="Padding" Value="16" />
+            </Style>
+
+            <!-- 设置行：左图标徽章 + 中标题/副标题 + 右控件 -->
+            <Style x:Key="SettingsRow" TargetType="Grid">
+                <Setter Property="MinHeight" Value="68" />
+                <Setter Property="Padding" Value="16,12" />
+            </Style>
+
+            <!-- 卡片内行分隔线 -->
+            <Style x:Key="SettingsRowDivider" TargetType="Rectangle">
+                <Setter Property="Height" Value="1" />
+                <Setter Property="Fill" Value="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                <Setter Property="Margin" Value="16,0" />
+            </Style>
+
+            <!-- 行首图标徽章（强调色方块 + 白色图标，Win11 设置同款） -->
+            <Style x:Key="SettingsIconBox" TargetType="Border">
+                <Setter Property="Width" Value="32" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="Background" Value="{ThemeResource AccentFillColorDefaultBrush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="SettingsRowTitle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
+            </Style>
+
+            <Style x:Key="SettingsRowSubtitle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <!-- 快速入口按钮（主页引导卡片） -->
+            <Style x:Key="QuickLinkButton" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="16,14" />
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="8" />
+            </Style>
+
+            <!-- ============================================================ -->
+            <!-- 兼容旧键名的 Fluent 化样式（代码后置按 Key 引用，不可删除）      -->
+            <!-- ============================================================ -->
+
+            <!-- 次级按钮：WinUI 默认中性按钮观感 -->
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="Padding" Value="12,6" />
+                <Setter Property="MinWidth" Value="72" />
+            </Style>
+
+            <!-- 主按钮：系统强调色（跟随 Windows 个性化配色与亮暗主题） -->
+            <Style x:Key="KawaiiPrimaryButton" TargetType="Button">
+                <Setter Property="Foreground" Value="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="Padding" Value="14,7" />
+                <Setter Property="MinWidth" Value="96" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="{ThemeResource AccentFillColorDefaultBrush}" />
+            </Style>
+
+            <Style x:Key="KawaiiCard" TargetType="Border" BasedOn="{StaticResource SettingsCardPadded}" />
+
+            <Style x:Key="KawaiiTextBox" TargetType="TextBox">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="MinHeight" Value="32" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="KawaiiComboBox" TargetType="ComboBox">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="MinHeight" Value="32" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="KawaiiInfoText" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="KawaiiLogBox" TargetType="ScrollViewer">
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="14" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}" />
+            </Style>
+
+            <!-- 页面主标题（Win11 设置页头 28px） -->
+            <Style x:Key="PageHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <!-- 页面副标题 -->
+            <Style x:Key="PageSubtitleStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Setter Property="Margin" Value="0,4,0,24" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <!-- 分组标题（卡片上方） -->
+            <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
+                <Setter Property="Margin" Value="2,8,0,8" />
+            </Style>
+
+            <!-- 细进度条（底部硬件监控） -->
+            <Style x:Key="KawaiiProgressBar" TargetType="ProgressBar">
+                <Setter Property="MinHeight" Value="4" />
+                <Setter Property="Height" Value="4" />
+                <Setter Property="Foreground" Value="{ThemeResource AccentFillColorDefaultBrush}" />
+                <Setter Property="Background" Value="{ThemeResource ControlFillColorDefaultBrush}" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+

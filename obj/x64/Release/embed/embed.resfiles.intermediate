@@ -1,0 +1,9 @@
+App.xbf
+MainWindow.xbf
+Pages\AdvancedPage.xbf
+Pages\HomePage.xbf
+Pages\InferencePage.xbf
+Pages\LogPage.xbf
+Pages\PreprocessPage.xbf
+Pages\SettingsPage.xbf
+Pages\TrainingPage.xbf
