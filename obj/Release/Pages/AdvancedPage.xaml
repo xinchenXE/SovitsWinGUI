@@ -1,0 +1,206 @@
+﻿<Page
+    x:Class="SoVITS_GUI.Pages.AdvancedPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="40,28,40,32">
+
+            <!-- 页面标题 -->
+            <TextBlock Text="高级工具" Style="{StaticResource PageHeaderStyle}" />
+            <TextBlock Text="模型导出、音色混合、特征检索索引构建与特征提取测试等进阶功能"
+                       Style="{StaticResource PageSubtitleStyle}" />
+
+            <!-- 当前项目 -->
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid Style="{StaticResource SettingsRow}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource SettingsIconBox}">
+                        <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE8B7;" FontSize="15"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="当前项目路径" Style="{StaticResource SettingsRowTitle}" />
+                        <TextBlock x:ConnectionId='17' x:Name="ProjectPathLabel" Text="" Style="{StaticResource SettingsRowSubtitle}"
+                                   TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 模型导出 -->
+            <TextBlock Text="模型导出" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCardPadded}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="将训练好的检查点导出为纯推理模型 sovits5.0.pth（同时生成可用于微调的 sovits5.0.pretrain.pth）"
+                               Style="{StaticResource SettingsRowSubtitle}" />
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:ConnectionId='15' x:Name="CheckpointPathBox" Grid.Column="0"
+                                 Style="{StaticResource KawaiiTextBox}"
+                                 PlaceholderText="模型检查点路径 (.pt 文件)" IsReadOnly="True" />
+                        <Button x:ConnectionId='16' x:Name="BrowseCkptBtn" Grid.Column="1"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                                        >
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE838;" FontSize="13" />
+                                <TextBlock Text="选择" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Button x:ConnectionId='14' x:Name="ExportModelBtn" Style="{StaticResource KawaiiPrimaryButton}"
+                                                      HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE105;" FontSize="13" />
+                            <TextBlock Text="导出模型" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- 音色混合 -->
+            <TextBlock Text="音色混合" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCardPadded}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="按权重混合多个音色嵌入（.npy），生成新音色并保存到 data_svc/singer，供推理页直接使用"
+                               Style="{StaticResource SettingsRowSubtitle}" />
+                    <Button x:ConnectionId='10' x:Name="AddMixFilesBtn" Style="{StaticResource SecondaryButtonStyle}"
+                                                      HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE8FA;" FontSize="13" />
+                            <TextBlock Text="添加音色文件（可多选）" />
+                        </StackPanel>
+                    </Button>
+                    <StackPanel x:ConnectionId='11' x:Name="VoiceMixPanel" Spacing="6" />
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="220" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="输出音色名称" FontSize="13"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}" VerticalAlignment="Center" />
+                        <TextBox x:ConnectionId='13' x:Name="MixOutputBox" Grid.Column="1" Style="{StaticResource KawaiiTextBox}"
+                                 Text="eva" PlaceholderText="例如: eva" />
+                    </Grid>
+                    <Button x:ConnectionId='12' x:Name="MixVoiceBtn" Style="{StaticResource KawaiiPrimaryButton}"
+                                                   HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE70F;" FontSize="13" />
+                            <TextBlock Text="执行音色混合" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- 特征检索索引 -->
+            <TextBlock Text="特征检索索引" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCardPadded}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="基于预处理产出的 HuBERT / Whisper 特征构建 FAISS 索引，推理时启用特征检索可提升音色稳定性"
+                               Style="{StaticResource SettingsRowSubtitle}" />
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="指定说话人（可选）" FontSize="13"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}" VerticalAlignment="Center" />
+                        <TextBox x:ConnectionId='9' x:Name="IndexSpeakerBox" Grid.Column="1" Style="{StaticResource KawaiiTextBox}"
+                                 PlaceholderText="留空为全部说话人；多个用逗号或空格分隔"
+                                 HorizontalAlignment="Stretch" MaxWidth="480" />
+                    </Grid>
+                    <Button x:ConnectionId='8' x:Name="BuildIndexBtn" Style="{StaticResource KawaiiPrimaryButton}"
+                                                     HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE721;" FontSize="13" />
+                            <TextBlock Text="构建检索索引" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- 训练数据加载测试 -->
+            <TextBlock Text="训练数据加载测试" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCardPadded}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="遍历验证集并完整过一遍训练 DataLoader，用于训练前确认所有特征文件可被正确加载"
+                               Style="{StaticResource SettingsRowSubtitle}" />
+                    <Button x:ConnectionId='7' x:Name="TestDataLoaderBtn" Style="{StaticResource KawaiiPrimaryButton}"
+                                                         HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE78C;" FontSize="13" />
+                            <TextBlock Text="运行数据加载测试" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- 单音频特征提取测试 -->
+            <TextBlock Text="单音频特征提取测试" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCardPadded}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="对单个音频依次提取 PPG（Whisper-v3）、HuBERT 内容向量与 F0（RMVPE），生成 svc_tmp.* 文件，用于推理前排查特征提取问题"
+                               Style="{StaticResource SettingsRowSubtitle}" />
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:ConnectionId='5' x:Name="TestAudioNameText" Grid.Column="0"
+                                   Text="未选择音频" FontSize="12"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
+                        <Button x:ConnectionId='6' x:Name="SelectTestAudioBtn" Grid.Column="1"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                                             >
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE838;" FontSize="13" />
+                                <TextBlock Text="选择音频" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Button x:ConnectionId='4' x:Name="FeatureExtractBtn" Style="{StaticResource KawaiiPrimaryButton}"
+                                                         HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE768;" FontSize="13" />
+                            <TextBlock Text="开始特征提取" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- 执行状态 -->
+            <TextBlock Text="执行" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid Style="{StaticResource SettingsRow}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource SettingsIconBox}">
+                        <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE9D2;" FontSize="15"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="执行状态" Style="{StaticResource SettingsRowTitle}" />
+                        <TextBlock x:ConnectionId='3' x:Name="StatusLabel" Text="就绪" Style="{StaticResource SettingsRowSubtitle}" />
+                    </StackPanel>
+                    <Button x:ConnectionId='2' x:Name="StopBtn" Grid.Column="2" Style="{StaticResource SecondaryButtonStyle}"
+                            IsEnabled="False"                    VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE71A;" FontSize="13" />
+                            <TextBlock Text="停止" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
+

@@ -1,0 +1,177 @@
+﻿<Page
+    x:Class="SoVITS_GUI.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="40,28,40,32">
+
+            <!-- 页面标题 -->
+            <TextBlock Text="主页" Style="{StaticResource PageHeaderStyle}" />
+            <TextBlock Text="Whisper-vits-svc-LargeV3 歌声转换启动器"
+                       Style="{StaticResource PageSubtitleStyle}" />
+
+            <!-- 欢迎卡片 -->
+            <Border Style="{StaticResource SettingsCardPadded}">
+                <Grid ColumnSpacing="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Width="64" Height="64" CornerRadius="8"
+                            VerticalAlignment="Center">
+                        <Image x:ConnectionId='8' x:Name="WelcomeImage"
+                               Source="ms-appx:///img/1e17595441e50a79b4c31c6bae9e3880_8036775604872242697.png"
+                               Stretch="UniformToFill" />
+                    </Border>
+
+                    <StackPanel Grid.Column="1" Spacing="6" VerticalAlignment="Center">
+                        <TextBlock Text="欢迎使用 So-VITS-SVC"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                        <TextBlock Text="本启动器通过可视化界面完成预处理、训练、推理等全流程操作"
+                                   Style="{StaticResource SettingsRowSubtitle}" />
+                        <TextBlock Text="使用步骤：预处理 → 训练 → 推理转换"
+                                   FontSize="12"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 快速开始 -->
+            <TextBlock Text="快速开始" Style="{StaticResource SectionHeaderStyle}" />
+            <StackPanel Spacing="8">
+                <Button x:ConnectionId='5' Style="{StaticResource QuickLinkButton}"                              >
+                    <Grid ColumnSpacing="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE70F;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="预处理" FontSize="14"
+                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                            <TextBlock Text="将原始音频数据集处理为训练所需的特征文件" FontSize="12"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                        <FontIcon Grid.Column="2" FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE76A;"
+                                  FontSize="12" VerticalAlignment="Center"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                </Button>
+
+                <Button x:ConnectionId='6' Style="{StaticResource QuickLinkButton}"                            >
+                    <Grid ColumnSpacing="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE71D;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="模型训练" FontSize="14"
+                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                            <TextBlock Text="设置训练参数并启动 So-VITS 模型训练" FontSize="12"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                        <FontIcon Grid.Column="2" FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE76A;"
+                                  FontSize="12" VerticalAlignment="Center"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                </Button>
+
+                <Button x:ConnectionId='7' Style="{StaticResource QuickLinkButton}"                             >
+                    <Grid ColumnSpacing="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE720;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="推理转换" FontSize="14"
+                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                            <TextBlock Text="上传音频，选择目标角色，一键完成歌声转换" FontSize="12"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                        <FontIcon Grid.Column="2" FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE76A;"
+                                  FontSize="12" VerticalAlignment="Center"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                </Button>
+            </StackPanel>
+
+            <!-- 项目路径 -->
+            <TextBlock Text="项目" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid Style="{StaticResource SettingsRow}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource SettingsIconBox}">
+                        <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE8B7;" FontSize="15"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="当前项目路径" Style="{StaticResource SettingsRowTitle}" />
+                        <TextBlock Text="可在设置页面中修改" Style="{StaticResource SettingsRowSubtitle}" />
+                    </StackPanel>
+                    <TextBox x:ConnectionId='4' x:Name="ProjectPathBox" Grid.Column="2"
+                             Style="{StaticResource KawaiiTextBox}" MinWidth="420"
+                             PlaceholderText="请在设置页面中配置项目路径" IsReadOnly="True" />
+                </Grid>
+            </Border>
+
+            <!-- 环境检查 -->
+            <TextBlock Text="环境检查" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel>
+                    <Grid Style="{StaticResource SettingsRow}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE78C;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="Python 环境检测" Style="{StaticResource SettingsRowTitle}" />
+                            <TextBlock Text="检测 Python、PyTorch、CUDA 与依赖包状态"
+                                       Style="{StaticResource SettingsRowSubtitle}" />
+                        </StackPanel>
+                        <Button x:ConnectionId='3' x:Name="CheckEnvBtn" Grid.Column="2"
+                                Style="{StaticResource KawaiiPrimaryButton}"
+                                                       VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE78C;" FontSize="13" />
+                                <TextBlock Text="检查环境" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Rectangle Style="{StaticResource SettingsRowDivider}" />
+                    <StackPanel x:ConnectionId='2' x:Name="EnvStatusPanel" Padding="16,12" Spacing="6">
+                        <TextBlock Text="点击上方按钮开始检测"
+                                   FontSize="12"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
+
