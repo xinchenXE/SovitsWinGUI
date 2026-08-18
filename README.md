@@ -1,0 +1,2 @@
+# SovitsWinGUI
+用于兼容改版Sovits的Windows专用GUI
