@@ -1,0 +1,154 @@
+<Page
+    x:Class="SoVITS_GUI.Pages.PreprocessPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="40,28,40,32">
+
+            <!-- 页面标题 -->
+            <TextBlock Text="预处理" Style="{StaticResource PageHeaderStyle}" />
+            <TextBlock Text="将原始音频数据集处理为训练所需的特征文件"
+                       Style="{StaticResource PageSubtitleStyle}" />
+
+            <!-- 当前项目 -->
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid Style="{StaticResource SettingsRow}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource SettingsIconBox}">
+                        <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE8B7;" FontSize="15"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="当前项目路径" Style="{StaticResource SettingsRowTitle}" />
+                        <TextBlock x:Name="ProjectPathLabel" Text="" Style="{StaticResource SettingsRowSubtitle}"
+                                   TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 预处理参数 -->
+            <TextBlock Text="预处理参数" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel>
+                    <!-- F0 提取器 -->
+                    <Grid Style="{StaticResource SettingsRow}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE8D6;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="F0 提取器" Style="{StaticResource SettingsRowTitle}" />
+                            <TextBlock Text="CREPE 精度高，RMVPE 速度快" Style="{StaticResource SettingsRowSubtitle}" />
+                        </StackPanel>
+                        <ComboBox x:Name="F0ExtractorBox" Grid.Column="2"
+                                  Style="{StaticResource KawaiiComboBox}" MinWidth="320"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="CREPE（推荐，精度高）" />
+                            <ComboBoxItem Content="RMVPE（速度快）" />
+                        </ComboBox>
+                    </Grid>
+                    <Rectangle Style="{StaticResource SettingsRowDivider}" />
+
+                    <!-- Whisper 版本 -->
+                    <Grid Style="{StaticResource SettingsRow}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE898;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="Whisper 版本" Style="{StaticResource SettingsRowTitle}" />
+                            <TextBlock Text="PPG 内容特征提取所用模型" Style="{StaticResource SettingsRowSubtitle}" />
+                        </StackPanel>
+                        <ComboBox x:Name="WhisperVersionBox" Grid.Column="2"
+                                  Style="{StaticResource KawaiiComboBox}" MinWidth="320"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="Large-v3（推荐，LargeV3-MiX3 默认）" />
+                            <ComboBoxItem Content="Large-v2（兼容旧版底模）" />
+                        </ComboBox>
+                    </Grid>
+                    <Rectangle Style="{StaticResource SettingsRowDivider}" />
+
+                    <!-- 线程数 -->
+                    <Grid Style="{StaticResource SettingsRow}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource SettingsIconBox}">
+                            <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE90F;" FontSize="15"
+                                      Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="处理线程数" Style="{StaticResource SettingsRowTitle}" />
+                            <TextBlock Text="并行处理的线程数量" Style="{StaticResource SettingsRowSubtitle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" MinWidth="320" Spacing="2" VerticalAlignment="Center">
+                            <Slider x:Name="ThreadSlider" Minimum="1" Maximum="16" Value="2"
+                                    StepFrequency="1" TickFrequency="1" TickPlacement="Outside"
+                                    IsThumbToolTipEnabled="True" />
+                            <TextBlock x:Name="ThreadLabel" Text="当前：2 线程" FontSize="11"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="提示：Whisper 要求输入不超过 30 秒，长音频请先自行切分；预处理会自动跳过已生成的特征文件，重复执行不会重新计算。"
+                       FontSize="12" Margin="2,8,0,0" TextWrapping="Wrap"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+            <!-- 执行 -->
+            <TextBlock Text="执行" Style="{StaticResource SectionHeaderStyle}" />
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid Style="{StaticResource SettingsRow}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource SettingsIconBox}">
+                        <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE768;" FontSize="15"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="一键预处理" Style="{StaticResource SettingsRowTitle}" />
+                        <TextBlock Text="按顺序执行重采样、F0、PPG、HuBERT、说话人与谱提取"
+                                   Style="{StaticResource SettingsRowSubtitle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Button x:Name="StartPreprocessBtn" Style="{StaticResource KawaiiPrimaryButton}"
+                                Click="StartPreprocess_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE768;" FontSize="13" />
+                                <TextBlock Text="开始" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="StopPreprocessBtn" Style="{StaticResource SecondaryButtonStyle}"
+                                IsEnabled="False" Click="StopPreprocess_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon FontFamily="{StaticResource FluentIconFont}" Glyph="&#xE71A;" FontSize="13" />
+                                <TextBlock Text="停止" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
