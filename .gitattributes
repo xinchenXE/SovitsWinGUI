@@ -1,0 +1,35 @@
+# 文本文件默认按内容自动识别，检出时使用 CRLF（Windows 工程）
+* text=auto eol=crlf
+
+# .NET / WinUI 源码
+*.cs       text eol=crlf
+*.xaml     text eol=crlf
+*.csproj   text eol=crlf
+*.sln      text eol=crlf
+*.slnx     text eol=crlf
+*.manifest text eol=crlf
+*.config   text eol=crlf
+*.props    text eol=crlf
+*.targets  text eol=crlf
+*.json     text eol=crlf
+
+# 脚本保持各自平台换行
+*.bat      text eol=crlf
+*.cmd      text eol=crlf
+*.ps1      text eol=crlf
+*.py       text eol=lf
+*.sh       text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+
+# 二进制资源
+*.ico      binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.wav      binary
+*.npy      binary
+*.pth      binary
+*.ckpt     binary
+*.onnx     binary

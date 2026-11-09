@@ -1,0 +1,21 @@
+# 构建输出
+bin/
+obj/
+publish/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio / 用户配置
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# 系统与临时文件
+*.tmp
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store
